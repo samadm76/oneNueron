@@ -4,17 +4,36 @@ import numpy as np
 import joblib 
 from matplotlib.colors import ListedColormap
 import os
+import logging
 def prepare_data(df):
+  """It is used to separate the dependent variables and independent features
+  
+  Args:
+      df (pd.Dataframe): it is the pandas DataFrame 
+
+  Returns:
+      tuple: it returns the tuples of dependent variables and independent variables
+
+  """
+  logging.info("Preparing the data by segregarubg the independent and depened variables")
   X = df.drop("y", axis=1)
 
   y = df["y"]
 
   return X, y
 def save_model(model, filename):
+  """This saves the trained model to 
+
+  Args:
+      model (python object): trained model to 
+      filename (str ): path to save the trained model
+  """
+  logging.info("Saving the model")
   model_dir = "models"
   os.makedirs(model_dir, exist_ok=True) # ONLY CREATE IF MODEL_DIR DOESN"T EXISTS
   filePath = os.path.join(model_dir, filename) # model/filename
   joblib.dump(model, filePath)
+  logging.info(f"Model saved in(filepath)")
 
 def save_plot(df, file_name, model):
   def _create_base_plot(df):
